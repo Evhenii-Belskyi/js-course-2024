@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Гра: Камінь, ножиці, папір</title>
+  </head>
+  <body>
+    <script>
+      const CHOICES = ["камінь", "ножиці", "папір"];
+      let userScore = 0;
+      let computerScore = 0;
+
+      function getUserChoice() {
+        while (true) {
+          const userInput = prompt(
+            "Введіть ваш вибір ('камінь', 'ножиці', 'папір') або 'вихід' для завершення гри:"
+          ).toLowerCase();
+
+          if (userInput === "вихід" || userInput === "" || userInput === null) {
+            alert(`Гра завершена. Рахунок: Ви - ${userScore}, Комп'ютер - ${computerScore}`);
+            return;
+          }
+
+          if (CHOICES.includes(userInput)) {
+            alert(`Ваш вибір: ${userInput}`);
+            getComputerChoice(userInput);
+            return;
+          }
+
+          alert("Неправильний вибір.sa Спробуйте знову.");
+        }
+      }
+
+      function getComputerChoice(userChoice) {
+  const randomIndex = Math.floor(Math.random() * CHOICES.length);
+  const computerChoice = CHOICES[randomIndex];
+  alert(`Вибір комп'ютера: ${computerChoice}`);
+  determineWinner(userChoice, computerChoice);
+}
+
+      function determineWinner(userChoice, computerChoice) {
+        if (userChoice === computerChoice) {
+          alert("Нічия");
+        } else if (isUserWinningChoice(userChoice, computerChoice)) {
+          userScore++;
+          alert("Ви виграли!");
+        } else {
+          computerScore++;
+          alert("Ви програли!");
+        }
+        continueGame();
+      }
+
+      function isUserWinningChoice(userChoice, computerChoice) {
+        return (
+          (userChoice === "камінь" && computerChoice === "ножиці") ||
+          (userChoice === "ножиці" && computerChoice === "папір") ||
+          (userChoice === "папір" && computerChoice === "камінь")
+        );
+      }
+
+      function continueGame() {
+        const answer = prompt("Бажаєте продовжити гру? (так/ні)").toLowerCase();
+        if (answer === "так") {
+          getUserChoice();
+        } else {
+          gameStop();
+        }
+      }
+
+      function gameStop() {
+        alert(`Гру закінчено. Рахунок:\n Користувач: ${userScore}\n Комп'ютер: ${computerScore}`);
+      }
+
+      getUserChoice();
+    </script>
+  </body>
+</html>

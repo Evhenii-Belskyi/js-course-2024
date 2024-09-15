@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Математичний квіз</title>
+  </head>
+  <body>
+    <script>
+      let correctAnswers = 0;
+      let incorrectAnswers = 0;
+      let attempts = 5;
+
+      // Функция для генерації випадкових чисел
+      function getRandomOperator() {
+        const operators = ['+', '-', '*', '/'];
+        return operators[Math.floor(Math.random() * operators.length)];
+      }
+
+      // Функция для прорахування правільної відповідді
+      function calculateCorrectAnswer(num1, num2, operator) {
+        switch (operator) {
+          case '+':
+            return num1 + num2;
+          case '-':
+            return num1 - num2;
+          case '*':
+            return num1 * num2;
+          case '/':
+            return num1 / num2;
+        }
+      }
+
+      while (attempts > 0) {
+        // Генерація випадкового числа та оператора
+        const num1 = Math.floor(Math.random() * 10);
+        const num2 = Math.floor(Math.random() * 10);
+        const operator = getRandomOperator();
+
+        const expression = `${num1} ${operator} ${num2}`;
+        const userAnswer = prompt(`Скільки буде ${expression}?`);
+
+        // Правильна відповідь
+        const correctAnswer = calculateCorrectAnswer(num1, num2, operator);
+        if (userAnswer == correctAnswer) {
+          correctAnswers++;
+          alert(`Правильно ${correctAnswer}.`);
+        } else {
+          incorrectAnswers++;
+          alert(`Не правильна відповідь. Правильна відповідь це ${correctAnswer}.`);
+        }
+
+        attempts--;
+      }
+
+      // результати гри
+      alert(`Гра завершина! Ви назвали ${correctAnswers} правильних відповідей та ${incorrectAnswers} не правильних відповідей`);
+    </script>
+  </body>
+</html>
